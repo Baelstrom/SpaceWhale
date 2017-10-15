@@ -1,17 +1,22 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <QObject>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include "whalea.h"
+#include <QWidget>
 
-class Game : public QObject
-{
-    Q_OBJECT
+class Game: public QGraphicsView{
 public:
-    explicit Game(QObject *parent = nullptr);
+    // constructors
+    Game(QWidget * parent=NULL);
 
-signals:
+    // public methods
+    void start();
 
-public slots:
+    // public attributes
+    QGraphicsScene * scene;
+    WhaleA * whale;
 };
 
 #endif // GAME_H

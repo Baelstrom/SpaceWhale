@@ -25,7 +25,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+    MyRect.cpp \
+    whalea.cpp \
+    game.cpp
 
 HEADERS += \
-        mainwindow.h
+    MyRect.h \
+    whalea.h \
+    game.h
