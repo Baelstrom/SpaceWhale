@@ -1,19 +1,24 @@
 #include "MyRect.h"
 #include <QKeyEvent>
 #include "whalea.h"
+#include <QDebug>
 
 void MyRect::keyPressEvent(QKeyEvent * event){
     if(event->key() == Qt::Key_Left) {
         setPos(x()-10,y());
+        qDebug() << "Key_Left";
     }
     else if (event->key() == Qt::Key_Right) {
         setPos(x()+10,y());
+        qDebug() << "Key_Right";
     }
     else if (event->key() == Qt::Key_Up) {
         setPos(x(),y()-10);
+        qDebug() << "Key_Up";
     }
     else if (event->key() == Qt::Key_Down) {
         setPos(x(),y()+10);
+        qDebug() << "Key_Down";
     }
 }
 

@@ -6,16 +6,17 @@
 #include "whalea.h"
 #include <QWidget>
 
-class Game: public QGraphicsView{
+class Game{
 public:
     // constructors
-    Game(QWidget * parent=NULL);
+    Game();
 
     // public methods
     void start();
 
     // public attributes
     QGraphicsScene * scene;
+    QGraphicsView * view;
     WhaleA * whale;
 };
 

@@ -1,28 +1,23 @@
 #include "game.h"
 #include "whalea.h"
 
-Game::Game(QWidget *parent){
+Game::Game(){
     // set up the screen
-//    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(1024,768);
+    // setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    // setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
     // set up the scene
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,1024,768);
-    setScene(scene);
+//    scene->setSceneRect(0,0,1024,768);
 
-    QGraphicsView * view = new QGraphicsView(scene);
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-    // show the view
+    view = new QGraphicsView(scene);
+//    view->setFixedSize(1024,768);
     view->show();
-    view->setFixedSize(1024,768);
 }
 
 void Game::start(){
     // test code TODO remove
     whale = new WhaleA();
     whale->drawWhale(100,100);
+    view->update();
 }

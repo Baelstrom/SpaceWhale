@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QGraphicsRectItem>
+#include <QKeyEvent>
+#include "MyRect.h"
 
 class WhaleA: QGraphicsRectItem
 {
