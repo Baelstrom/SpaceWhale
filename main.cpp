@@ -11,37 +11,31 @@ Game* game;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
+//    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 //    game = new Game();
 //    game->start();
 
-    QGraphicsScene * scene = new QGraphicsScene();
-//    scene->setSceneRect(0,0,1024,768);
-       // create an item to add to the scene
-       MyRect * rect = new MyRect();
-       rect->setRect(0,0,100,100); // change the rect from 0x0 (default) to 100x100 pixels
+    // Create a view and a scene
+    QGraphicsView * view = new QGraphicsView();
+    QGraphicsScene * scene = new QGraphicsScene(0, 0, 1000, 800, view);
+//    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+//    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-       // add the item to the scene
-       scene->addItem(rect);
-
-       // make rect focusable
-       rect->setFlag(QGraphicsItem::ItemIsFocusable);
-       rect->setFocus();
-
-       // create a view to visualize the scene
-       QGraphicsView * view = new QGraphicsView(scene);
-       view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-       view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-
-       // show the view
-//       view->setSceneRect(0,0,1024,768);
-       view->show();
-       view->setFixedSize(800,600);
-       scene->setSceneRect(0,0,800,600);
-
-       rect->setPos(view->width()/2,view->height() - rect->rect().height());
+    // Add A Rectangle to the scene
+    MyRect * rect = new MyRect();
+    rect->setRect(0,0,100,100);
+    scene->addItem(rect);
+    rect->setFlag(QGraphicsItem::ItemIsFocusable);
+    rect->setFocus();
 
 
+    // set scene in view
+    view->show();
+    view->setFixedSize(800,600);
+    view->setScene(scene);
+
+    rect->setPos(view->width()/2,view->height() - rect->rect().height());
 
     return a.exec();
 }
