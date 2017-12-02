@@ -4,21 +4,28 @@
 #include <QDebug>
 
 void MyRect::keyPressEvent(QKeyEvent * event){
-    if(event->key() == Qt::Key_Left) {
-        setPos(x()-10,y());
-        qDebug() << "Key_Left";
-    }
-    else if (event->key() == Qt::Key_Right) {
-        setPos(x()+10,y());
-        qDebug() << "Key_Right";
-    }
-    else if (event->key() == Qt::Key_Up) {
-        setPos(x(),y()-10);
-        qDebug() << "Key_Up";
-    }
-    else if (event->key() == Qt::Key_Down) {
-        setPos(x(),y()+10);
-        qDebug() << "Key_Down";
+    qDebug() << "pressed";
+    switch (event->key()) {
+        case Qt::Key_Left : {
+            this->setPos(x()-10,y());
+            qDebug() << "left";
+            break;
+        }
+        case Qt::Key_Right : {
+            this->setPos(x()+10,y());
+            qDebug() << "right";
+            break;
+        }
+        case Qt::Key_Up : {
+            this->setPos(x(),y()-10);
+            qDebug() << "up";
+            break;
+        }
+        case Qt::Key_Down : {
+            this->setPos(x(),y()+10);
+            qDebug() << "down";
+            break;
+        }
     }
 }
 
