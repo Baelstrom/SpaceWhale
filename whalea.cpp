@@ -17,90 +17,66 @@ QList<QGraphicsRectItem *> WhaleA::getWhale()
 }
 
 
-void WhaleA::drawWhale(int x, int y){
+void WhaleA::drawWhale(){
     // This function adds all the slices of the whale to the scene
-
+    qDebug() << "inside drawWhale()";
 
     // number of slices
     size_t numOfRects = 3;
-
+    qDebug() << "init noOf Rects";
     // interator to create them
-//    for (size_t i = 1; i < numOfRects+1; i++ ) {
-
-//        // create the rect
-//        QGraphicsRectItem * slice = new QGraphicsRectItem();
-
-//        // set the size of the rect
-//        slice->setRect(100*i,100*i,100,100);
-
+    for (size_t i = 1; i < numOfRects+1; i++ ) {
+        qDebug() << "inside Loop";
+        // create the rect
+        QGraphicsRectItem * slice = new QGraphicsRectItem();
+        qDebug() << "created slice";
+        // set the size of the rect and the position
+        slice->setRect(20*i,20*i,100,100);
+        qDebug() << "set my rect";
 //        // set the position
-////        slice->setPos(500,500);
+//        slice->setPos(100*i,100*i);
 
-//        // append to list of whale slices
-//        whale.append(slice);
+        // append to list of whale slices
+        whale.append(slice);
+        qDebug() << "appended";
+        // add to scene
+        game->scene->addItem(slice);
+        qDebug() << "created";
+    }
 
-//        // add to scene
-//        game->scene->addItem(slice);
-
-//        qDebug() << "created";
-//    }
-
-//    // set the head of the whale to be focusable so that we can move it
-//    head = whale.first();
-//    head->setFlag(QGraphicsItem::ItemIsFocusable);
-//    head->setFocus();
-//    qDebug() << head;
-
-    MyRect * slice = new MyRect();
-
-    slice->setRect(100*1,100*1,100,100);
-    game->scene->addItem(slice);
-    slice->setFlag(QGraphicsItem::ItemIsFocusable);
-    slice->setFocus();
+    // set the head of the whale to be focusable so that we can move it
+    head = whale.first();
+    head->setFlag(QGraphicsItem::ItemIsFocusable);
+    head->setFocus();
+    qDebug() << head;
 }
 
 
 // the purpose of this function is to register the players movement actions
 // and register them to the head of the whale
 void WhaleA::keyPressEvent(QKeyEvent * event){
-        qDebug() << "pressed";
-//    switch (event->key()) {
-//        case Qt::Key_Left : {
-//            head->setPos(x()-10,y());
-//            qDebug() << "left";
-//            break;
-//        }
-//        case Qt::Key_Right : {
-//            head->setPos(x()-10,y());
-//            qDebug() << "right";
-//            break;
-//        }
-//        case Qt::Key_Up : {
-//            head->setPos(x()-10,y());
-//            qDebug() << "up";
-//            break;
-//        }
-//        case Qt::Key_Down : {
-//            head->setPos(x()-10,y());
-//            qDebug() << "down";
-//            break;
-//        }
-//    }
+    qDebug() << "pressed";
+    switch (event->key()) {
+        case Qt::Key_Left : {
+            this->setPos(x()-10,y());
+            qDebug() << "left";
+            break;
+        }
+        case Qt::Key_Right : {
+            this->setPos(x()+10,y());
+            qDebug() << "right";
+            break;
+        }
+        case Qt::Key_Up : {
+            this->setPos(x(),y()-10);
+            qDebug() << "up";
+            break;
+        }
+        case Qt::Key_Down : {
+            this->setPos(x(),y()+10);
+            qDebug() << "down";
+            break;
+        }
+    }
 
-    if(event->key() == Qt::Key_Left) {
-        head->setPos(x()-10,y());
-        qDebug() << "left";
-    }
-    else if (event->key() == Qt::Key_Right) {
-        head->setPos(x()+10,y());
-        qDebug() << "right";
-    }
-    else if (event->key() == Qt::Key_Up) {
-        head->setPos(x(),y()-10);
-        qDebug() << "left";
-    }
-    else if (event->key() == Qt::Key_Down) {
-        head->setPos(x(),y()+10);
-        qDebug() << "left";
-    }
 }

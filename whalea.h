@@ -16,7 +16,7 @@ public:
     QList<QGraphicsRectItem*>  getWhale();
 
     // public methods
-    void drawWhale(int x, int y);
+    void drawWhale();
     void keyPressEvent(QKeyEvent * event);
 
 private:
