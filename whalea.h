@@ -2,24 +2,36 @@
 #define WHALEA_H
 
 #include <QObject>
+#include <QList>
+#include <QVector>
 #include <QGraphicsRectItem>
-
-class WhaleA: QGraphicsRectItem
+#include <QMouseEvent>
+class WhaleA: public QObject,public QGraphicsRectItem
 {
+    Q_OBJECT
 public:
     // constructor
     WhaleA();
 
-    // getters / setters
-    QList<QGraphicsRectItem*>  getWhale();
-
     // public methods
-    void drawWhale(int x, int y);
-    void keyPressEvent(QKeyEvent * event);
+    void drawWhale();
+    void animateWhale();
 
+public slots:
+    void move();
+    void updateTargetMousePosition(QMouseEvent * event);
 private:
-    QList<QGraphicsRectItem*> whale;
+    // private variables
     QGraphicsRectItem * head;
+    QVector<float> history;
+    bool  reachedPosition;
+    QVector<QGraphicsRectItem*> whale;
+    QGraphicsRectItem ** whaleArray;
+    QPointF * targetPosition;
+
+    // private functions
+    float getVelocity(float distance);
+    float getNewCoords(float w2, float w1, float velocity);
 };
 
 #endif // WHALEA_H

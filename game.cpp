@@ -1,28 +1,35 @@
 #include "game.h"
 #include "whalea.h"
+#include <QDebug>
 
 Game::Game(QWidget *parent){
-    // set up the screen
-//    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-//    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(1024,768);
-
-    // set up the scene
+    this->setMouseTracking(true);
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,1024,768);
+    scene->setSceneRect(0,0,1000,800); // make the scene 800x600 instead of infinity by infinity (default)
+
+    // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
+    // it can be used to visualize scenes)
     setScene(scene);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setFixedSize(1100,900);
 
-    QGraphicsView * view = new QGraphicsView(scene);
-    view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    // start global timer
+    timer = new QTimer();
+    // start the timer
+    timer->start(25);
 
-    // show the view
-    view->show();
-    view->setFixedSize(1024,768);
 }
 
 void Game::start(){
     // test code TODO remove
     whale = new WhaleA();
-    whale->drawWhale(100,100);
+    whale->drawWhale();
+    whale->animateWhale();
+}
+
+void Game::mouseMoveEvent(QMouseEvent *event){
+    qDebug() << "mouse detected";
+    qDebug() << event->pos();
+    connect(timer, SIGNAL(timeout()),whale,SLOT(updateTargetMousePosition(QMouseEvent*)));
 }
