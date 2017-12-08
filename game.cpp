@@ -31,5 +31,5 @@ void Game::start(){
 void Game::mouseMoveEvent(QMouseEvent *event){
     qDebug() << "mouse detected";
     qDebug() << event->pos();
-    connect(timer, SIGNAL(timeout()),whale,SLOT(updateTargetMousePosition(QMouseEvent*)));
+    whale->updateTargetMousePosition(event);
 }
