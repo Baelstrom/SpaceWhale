@@ -9,15 +9,15 @@
 #include <QMouseEvent>
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include <whaleslice.h>
 
 extern Game* game;
 
-WhaleA::WhaleA(): QObject(),  QGraphicsPixmapItem(){
-    QVector<QGraphicsPixmapItem*> whale(43);
+WhaleA::WhaleA(): QObject(){
+    QVector<WhaleSlice*> whale(44);
     targetPosition = new QPointF();
-    targetPosition->setX(10);
-    qDebug() << "runs here";
-    targetPosition->setY(10);
+    targetPosition->setX(0);
+    targetPosition->setY(0);
 }
 
 void WhaleA::drawWhale(){
@@ -31,13 +31,11 @@ void WhaleA::drawWhale(){
     for (int i = 0; i < numOfRects; i++ ) {
 
         // get the image
-        QGraphicsPixmapItem * slice = new QGraphicsPixmapItem();
-        QString location = ":/whaleSlices/Slices/";
+        QString path = ":/whaleSlices/Slices/";
         QString index = (const char*)i;
-        location.append(index);
-        location.append(".png");
-        slice->setPixmap(QPixmap(location));
-
+        path.append(index);
+        path.append(".png");
+        WhaleSlice * slice = new WhaleSlice(path);
 
         // set the position
         slice->setPos(i*100,i*100);
@@ -90,7 +88,6 @@ void WhaleA::move(){
     float y1 = currentPosition.y();
 
     // find distance
-//    float distance = sqrt( pow((x2-x1), 2) + pow((y2-y1), 2));
     float xDistance = sqrt(pow(x2-x1,2));
     float yDistance = sqrt(pow(y2-y1,2));
 
@@ -98,13 +95,6 @@ void WhaleA::move(){
     float nx = getNewCoords(x2,x1,velocity);
     velocity = getVelocity(yDistance);
     float ny = getNewCoords(y2,y1,velocity);
-
-
-//    for(int i = 0; i < 3; i++) {
-//        QGraphicsRectItem * arrayItem = whaleArray[i];
-//        arrayItem->setPos(x()+nx+25*i,y()+ny+25*i);
-//        whaleArray[i] = arrayItem;
-//    }
 
 
     // first shift the array one step to the right
@@ -120,7 +110,7 @@ void WhaleA::move(){
 
     // iterate over whale object and apply transformations
     for(int i = 0; i < 44; i++) {
-        QGraphicsPixmapItem * arrayItem = whaleArray[i];
+        WhaleSlice * arrayItem = whaleArray[i];
         nx = dxHistoryArray[i];
         ny = dyHistoryArray[i];
         arrayItem->setPos(nx,ny);
