@@ -4,9 +4,10 @@
 #include <QObject>
 #include <QList>
 #include <QVector>
-#include <QGraphicsRectItem>
+#include <QGraphicsPixmapItem>
 #include <QMouseEvent>
-class WhaleA: public QObject,public QGraphicsRectItem
+
+class WhaleA: public QObject,public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
@@ -25,9 +26,9 @@ public slots:
 private:
 
     // whale variables
-    QGraphicsRectItem * head;
-    QVector<QGraphicsRectItem*> whale;
-    QGraphicsRectItem ** whaleArray;
+    QGraphicsPixmapItem * head;
+    QVector<QGraphicsPixmapItem*> whale;
+    QGraphicsPixmapItem ** whaleArray;
     bool  reachedPosition;
     QPointF * targetPosition;
 

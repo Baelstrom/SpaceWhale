@@ -7,11 +7,13 @@
 #include <QList>
 #include <QVector>
 #include <QMouseEvent>
+#include <QPixmap>
+#include <QGraphicsPixmapItem>
 
 extern Game* game;
 
-WhaleA::WhaleA(): QObject(),  QGraphicsRectItem(){
-    QVector<QGraphicsRectItem*> whale(4);
+WhaleA::WhaleA(): QObject(),  QGraphicsPixmapItem(){
+    QVector<QGraphicsPixmapItem*> whale(43);
     targetPosition = new QPointF();
     targetPosition->setX(10);
     qDebug() << "runs here";
@@ -23,16 +25,19 @@ void WhaleA::drawWhale(){
 
 
     // number of slices
-    int numOfRects = 20;
+    int numOfRects = 44;
 
     // iterator to create them
     for (int i = 0; i < numOfRects; i++ ) {
 
-        // create the rect
-        QGraphicsRectItem * slice = new QGraphicsRectItem();
+        // get the image
+        QGraphicsPixmapItem * slice = new QGraphicsPixmapItem();
+        QString location = ":/whaleSlices/Slices/";
+        QString index = (const char*)i;
+        location.append(index);
+        location.append(".png");
+        slice->setPixmap(QPixmap(location));
 
-        // set the size of the rect
-        slice->setRect(0,0,100,100);
 
         // set the position
         slice->setPos(i*100,i*100);
@@ -114,8 +119,8 @@ void WhaleA::move(){
     dyHistoryArray[0] = ny;
 
     // iterate over whale object and apply transformations
-    for(int i = 0; i < 20; i++) {
-        QGraphicsRectItem * arrayItem = whaleArray[i];
+    for(int i = 0; i < 44; i++) {
+        QGraphicsPixmapItem * arrayItem = whaleArray[i];
         nx = dxHistoryArray[i];
         ny = dyHistoryArray[i];
         arrayItem->setPos(nx,ny);

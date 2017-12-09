@@ -33,3 +33,6 @@ HEADERS += \
     MyRect.h \
     whalea.h \
     game.h
+
+RESOURCES += \
+    resources.qrc
