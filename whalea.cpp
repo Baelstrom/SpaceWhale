@@ -14,14 +14,14 @@
 extern Game* game;
 
 WhaleA::WhaleA(): QObject(){
-    QVector<WhaleSlice*> whale(44);
+    QList<WhaleSlice*> whale;
     targetPosition = new QPointF();
     targetPosition->setX(0);
     targetPosition->setY(0);
 }
 
 void WhaleA::drawWhale(){
-    // This function adds all the slices of the whale to the scene
+//    // This function adds all the slices of the whale to the scene
 
 
     // number of slices
@@ -32,11 +32,17 @@ void WhaleA::drawWhale(){
 
         // get the image
         QString path = ":/whaleSlices/Slices/";
-        QString index = (const char*)i;
+//        QString index = (const char*)i;
+        QString index = QString::number(i);
         path.append(index);
         path.append(".png");
         WhaleSlice * slice = new WhaleSlice(path);
-
+//        QGraphicsPixmapItem * pixmapthing = new QGraphicsPixmapItem();
+//        pixmapthing->setPixmap((QPixmap(path)));
+//         pixmapthing->setPos(1*500,1*500);
+//         game->scene->addItem(pixmapthing);
+         qDebug() << "pixmapthing";
+         qDebug() << path;
         // set the position
         slice->setPos(i*100,i*100);
         qDebug() << "created";
@@ -57,7 +63,6 @@ void WhaleA::drawWhale(){
     // change history array and whale array into workable array objects
     dxHistoryArray = dxHistory.data();
     dyHistoryArray = dyHistory.data();
-    whaleArray = whale.data();
 
     // get the head and make that focusable
     head = whale.first();
@@ -110,11 +115,10 @@ void WhaleA::move(){
 
     // iterate over whale object and apply transformations
     for(int i = 0; i < 44; i++) {
-        WhaleSlice * arrayItem = whaleArray[i];
+        WhaleSlice * arrayItem = whale[i];
         nx = dxHistoryArray[i];
         ny = dyHistoryArray[i];
         arrayItem->setPos(nx,ny);
-//        whaleArray[i] = arrayItem;
     }
 
 
@@ -172,7 +176,7 @@ void WhaleA::updateTargetMousePosition(QMouseEvent *event){
 // and register them to the head of the whale
 
 void WhaleA::shiftHistory(){
-    int arraySize = 20;
+    int arraySize = 44;
 
     for(int i = arraySize - 1; i > 0; i--){
         dxHistoryArray[i] = dxHistoryArray[i-1];

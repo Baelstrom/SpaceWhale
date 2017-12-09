@@ -28,8 +28,7 @@ private:
 
     // whale variables
     WhaleSlice * head;
-    QVector<WhaleSlice*> whale;
-    WhaleSlice ** whaleArray;
+    QList<WhaleSlice*> whale;
     bool  reachedPosition;
     QPointF * targetPosition;
 
