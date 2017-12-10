@@ -23,6 +23,8 @@ public slots:
     // public slots
     void move();
     void updateTargetMousePosition(QMouseEvent * event);
+    void leftBarrelRoll();
+
 
 private:
 
@@ -42,6 +44,9 @@ private:
     float getVelocity(float distance);
     float getNewCoords(float w2, float w1, float velocity);
     void shiftHistory();
+    bool isLeftBarrelRoll;
+    bool isRightBarrelRoll;
+    bool isHolySmokes;
 };
 
 #endif // WHALEA_H

@@ -18,6 +18,9 @@ WhaleA::WhaleA(): QObject(){
     targetPosition = new QPointF();
     targetPosition->setX(0);
     targetPosition->setY(0);
+    isLeftBarrelRoll = false;
+    isRightBarrelRoll = false;
+    isHolySmokes = false;
 }
 
 void WhaleA::drawWhale(){
@@ -86,8 +89,8 @@ void WhaleA::move(){
 
 
 
-    float x2 = finalPosition->x();
-    float y2 = finalPosition->y();
+    float x2 = finalPosition->x() - 133;
+    float y2 = finalPosition->y() - 177;
 
     float x1 = currentPosition.x();
     float y1 = currentPosition.y();
@@ -161,6 +164,11 @@ void WhaleA::updateTargetMousePosition(QMouseEvent *event){
 
     targetPosition->setX(position.x());
     targetPosition->setY(position.y());
+}
+
+void WhaleA::leftBarrelRoll()
+{
+
 }
 
 //void WhaleA::addHistory(float velocity){

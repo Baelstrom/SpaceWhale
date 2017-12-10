@@ -33,3 +33,21 @@ void Game::mouseMoveEvent(QMouseEvent *event){
     qDebug() << event->pos();
     whale->updateTargetMousePosition(event);
 }
+
+void Game::mousePressEvent(QMouseEvent *event)
+{
+    switch(event->button()){
+        case Qt::LeftButton: {
+            qDebug() << "mouse Left";
+            break;
+        }
+        case Qt::MiddleButton: {
+            qDebug() << "mouse Middle";
+            break;
+        }
+        case Qt::RightButton: {
+            qDebug() << "mouse Right";
+            break;
+        }
+    }
+}

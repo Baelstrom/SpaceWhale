@@ -15,6 +15,7 @@ public:
     // public methods
     void start();
     void mouseMoveEvent(QMouseEvent * event);
+    void mousePressEvent(QMouseEvent * event);
 
     // public attributes
     QGraphicsScene * scene;
