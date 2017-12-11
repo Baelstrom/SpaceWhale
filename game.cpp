@@ -39,6 +39,7 @@ void Game::mousePressEvent(QMouseEvent *event)
     switch(event->button()){
         case Qt::LeftButton: {
             qDebug() << "mouse Left";
+            whale->leftBarrelRoll();
             break;
         }
         case Qt::MiddleButton: {
@@ -47,6 +48,7 @@ void Game::mousePressEvent(QMouseEvent *event)
         }
         case Qt::RightButton: {
             qDebug() << "mouse Right";
+            whale->rightBarrelRoll();
             break;
         }
     }

@@ -18,12 +18,13 @@ public:
     // public methods
     void drawWhale();
     void animateWhale();
+    void leftBarrelRoll();
+    void rightBarrelRoll();
 
 public slots:
     // public slots
     void move();
     void updateTargetMousePosition(QMouseEvent * event);
-    void leftBarrelRoll();
 
 
 private:
@@ -37,8 +38,12 @@ private:
     // everything to do with history
     QVector<float> dxHistory;
     QVector<float> dyHistory;
+    QVector<float> tHistory;
     float * dxHistoryArray;
     float * dyHistoryArray;
+    float * tHistoryArray;
+    qreal  currentRotation;
+
 
     // private functions
     float getVelocity(float distance);
@@ -46,6 +51,7 @@ private:
     void shiftHistory();
     bool isLeftBarrelRoll;
     bool isRightBarrelRoll;
+    void barrelRoll();
     bool isHolySmokes;
 };
 

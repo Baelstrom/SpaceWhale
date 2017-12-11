@@ -48,6 +48,7 @@ void WhaleA::drawWhale(){
          qDebug() << path;
         // set the position
         slice->setPos(i*100,i*100);
+        slice->setTransformOriginPoint(90,140);
         qDebug() << "created";
         qDebug() << i;
         // append to list of whale slices
@@ -61,11 +62,13 @@ void WhaleA::drawWhale(){
     for (int i = 0; i < numOfRects; i++){
         dxHistory.append(0.0);
         dyHistory.append(0.0);
+        tHistory.append(0.0);
     }
 
     // change history array and whale array into workable array objects
     dxHistoryArray = dxHistory.data();
     dyHistoryArray = dyHistory.data();
+    tHistoryArray = tHistory.data();
 
     // get the head and make that focusable
     head = whale.first();
@@ -86,6 +89,8 @@ void WhaleA::move(){
 
     QPointF  currentPosition = head->pos();
     QPointF * finalPosition = targetPosition;
+    QTransform transformation;
+    transformation.rotate(1.0);
 
 
 
@@ -115,12 +120,20 @@ void WhaleA::move(){
     // update head of the array to be the new co ordinates
     dxHistoryArray[0] = nx;
     dyHistoryArray[0] = ny;
+    barrelRoll();
+
 
     // iterate over whale object and apply transformations
     for(int i = 0; i < 44; i++) {
         WhaleSlice * arrayItem = whale[i];
+
+        // apply movement
         nx = dxHistoryArray[i];
         ny = dyHistoryArray[i];
+
+        // check for barrelRoll
+        // if lBarrelRoll == true
+        arrayItem->setRotation(tHistoryArray[i]);
         arrayItem->setPos(nx,ny);
     }
 
@@ -161,15 +174,27 @@ float WhaleA::getNewCoords(float w2, float w1, float velocity){
 
 void WhaleA::updateTargetMousePosition(QMouseEvent *event){
     QPoint position = event->pos();
-
     targetPosition->setX(position.x());
     targetPosition->setY(position.y());
 }
 
 void WhaleA::leftBarrelRoll()
 {
-
+    if(!isRightBarrelRoll){
+        isLeftBarrelRoll = true;
+        qDebug() << isLeftBarrelRoll;
+    }
 }
+
+void WhaleA::rightBarrelRoll()
+{
+    if(!isLeftBarrelRoll){
+        isRightBarrelRoll = true;
+        qDebug() << isRightBarrelRoll;
+    }
+}
+
+
 
 //void WhaleA::addHistory(float velocity){
 
@@ -189,7 +214,31 @@ void WhaleA::shiftHistory(){
     for(int i = arraySize - 1; i > 0; i--){
         dxHistoryArray[i] = dxHistoryArray[i-1];
         dyHistoryArray[i] = dyHistoryArray[i-1];
+        tHistoryArray[i] = tHistoryArray[i-1];
     }
 
 
+}
+
+void WhaleA::barrelRoll() {
+
+    if(isLeftBarrelRoll && tHistoryArray[0] != -350){
+        //        slice->setRotation(currentRotation - 5);
+        tHistoryArray[0] = tHistoryArray[0] - 10;
+        qDebug() << "fired left barrel roll head update";
+    } else if (isLeftBarrelRoll && tHistoryArray[0] == -350) {
+        tHistoryArray[0] = 0;
+        isLeftBarrelRoll = false;
+    }
+
+    if(isRightBarrelRoll && tHistoryArray[0] != 350) {
+        //       slice->setRotation(currentRotation + 5);
+        tHistoryArray[0] = tHistoryArray[0] + 10;
+        qDebug() << "fired right barrel roll head update";
+    } else if (isRightBarrelRoll && tHistoryArray[0] == 350) {
+        tHistoryArray[0] = 0;
+        isRightBarrelRoll = false;
+    }
+
+    qDebug() << tHistoryArray[0];
 }
