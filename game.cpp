@@ -1,6 +1,7 @@
 #include "game.h"
 #include "whalea.h"
 #include <QDebug>
+#include "space.h"
 
 Game::Game(QWidget *parent){
     this->setMouseTracking(true);
@@ -22,16 +23,20 @@ Game::Game(QWidget *parent){
 }
 
 void Game::start(){
-    // test code TODO remove
-    whale = new WhaleA();
-    whale->drawWhale();
-    whale->animateWhale();
+//    // test code TODO remove
+//    whale = new WhaleA();
+//    whale->drawWhale();
+//    whale->animateWhale();
+
+    space = new Space();
+    space->animateStarfield();
 }
 
 void Game::mouseMoveEvent(QMouseEvent *event){
     qDebug() << "mouse detected";
     qDebug() << event->pos();
-    whale->updateTargetMousePosition(event);
+//    whale->updateTargetMousePosition(event);
+    space->updateTargetMousePosition(event);
 }
 
 void Game::mousePressEvent(QMouseEvent *event)

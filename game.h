@@ -6,6 +6,7 @@
 #include "whalea.h"
 #include <QWidget>
 #include <QTimer>
+#include "space.h"
 
 class Game: public QGraphicsView{
 public:
@@ -21,6 +22,7 @@ public:
     QGraphicsScene * scene;
     QGraphicsView * view;
     WhaleA * whale;
+    Space * space;
     QTimer * timer;
 };
 

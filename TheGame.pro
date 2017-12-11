@@ -29,12 +29,14 @@ SOURCES += \
     whalea.cpp \
     game.cpp \
     whaleslice.cpp \
+    space.cpp
 
 HEADERS += \
     MyRect.h \
     whalea.h \
     game.h \
     whaleslice.h \
+    space.h
 
 RESOURCES += \
     resources.qrc
