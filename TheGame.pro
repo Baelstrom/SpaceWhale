@@ -34,6 +34,7 @@ HEADERS += \
     MyRect.h \
     whalea.h \
     game.h \
+    whaleslice.h \
 
 RESOURCES += \
     resources.qrc
