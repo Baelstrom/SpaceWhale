@@ -34,18 +34,11 @@ void WhaleA::drawWhale(){
     for (int i = 0; i < numOfRects; i++ ) {
 
         // get the image
-        QString path = ":/whaleSlices/Slices/";
-//        QString index = (const char*)i;
         QString index = QString::number(i);
+        QString path = ":/whaleSlices/Slices/";
         path.append(index);
         path.append(".png");
         WhaleSlice * slice = new WhaleSlice(path);
-//        QGraphicsPixmapItem * pixmapthing = new QGraphicsPixmapItem();
-//        pixmapthing->setPixmap((QPixmap(path)));
-//         pixmapthing->setPos(1*500,1*500);
-//         game->scene->addItem(pixmapthing);
-         qDebug() << "pixmapthing";
-         qDebug() << path;
         // set the position
         slice->setPos(i*100,i*100);
         slice->setTransformOriginPoint(90,140);

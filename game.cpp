@@ -2,6 +2,8 @@
 #include "whalea.h"
 #include <QDebug>
 #include "space.h"
+#include <QBrush>
+#include <QColor>
 
 Game::Game(QWidget *parent){
     this->setMouseTracking(true);
@@ -10,6 +12,10 @@ Game::Game(QWidget *parent){
 
     // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
     // it can be used to visualize scenes)
+    QBrush *brush=new QBrush();
+    brush->setStyle(Qt::SolidPattern);
+    brush->setColor(QColor(45,45,45,255));
+    scene->setBackgroundBrush(*brush);
     setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -18,24 +24,22 @@ Game::Game(QWidget *parent){
     // start global timer
     timer = new QTimer();
     // start the timer
-    timer->start(25);
+    timer->start(17);
 
 }
 
 void Game::start(){
-//    // test code TODO remove
-//    whale = new WhaleA();
-//    whale->drawWhale();
-//    whale->animateWhale();
-
     space = new Space();
     space->animateStarfield();
+    whale = new WhaleA();
+    whale->drawWhale();
+    whale->animateWhale();
 }
 
 void Game::mouseMoveEvent(QMouseEvent *event){
     qDebug() << "mouse detected";
     qDebug() << event->pos();
-//    whale->updateTargetMousePosition(event);
+    whale->updateTargetMousePosition(event);
     space->updateTargetMousePosition(event);
 }
 

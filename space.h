@@ -12,7 +12,9 @@ class Space : public QObject
 public:
     explicit Space(QObject *parent = nullptr); 
     void animateStarfield();
+    QList<QGraphicsEllipseItem*> starfield;
     QGraphicsRectItem * star;
+    QGraphicsEllipseItem ** starArray;
 signals:
 
 public slots:
@@ -24,6 +26,7 @@ private:
     int height;
     int width;
     float velocity;
+    int numberOfStars;
 };
 
 #endif // SPACE_H

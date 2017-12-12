@@ -2,75 +2,66 @@
 #include "game.h"
 #include <QMouseEvent>
 #include <QGraphicsRectItem>
+#include <QGraphicsEllipseItem>
 #include <QDebug>
 extern Game * game;
 
 Space::Space(QObject *parent) : QObject(parent)
 {
     targetPosition = new QPointF();
-    targetPosition->setX(50);
-    targetPosition->setY(50);
+    numberOfStars = 50;
     width = game->scene->width();
     height = game->scene->height();
-    star = new QGraphicsRectItem;
-    star->setRect(0,0,2,2);
-    star->setPos(width/2,height/2);
+    targetPosition->setX(50);
+    targetPosition->setY(50);
+    velocity = 0.1 * 0.2 ;
 
-    game->scene->addItem(star);
 
-    velocity = 0.1 * 0.3 ;
+    for(int i = 0; i < numberOfStars; i++){
+        QGraphicsEllipseItem * star = new QGraphicsEllipseItem();
+        star->setBrush(Qt::white);
+        star->setRect(0,0,3,3);
+        float randomX = getRandomNumFromRange(0,width);
+        float randomY = getRandomNumFromRange(0,height);
+        star->setPos(randomX,randomY);
+        starfield.append(star);
+        game->scene->addItem(star);
+    }
+
+    qDebug() << starfield[1]->pos();
 }
 
 void Space::animateStarfield()
 {
     connect(game->timer,SIGNAL(timeout()),this,SLOT(starry()));
-
 }
 
 void Space::starry()
 {
 
-    // do while !outOfBounds
-    QPointF currentPosition = star->pos();
     QPointF * mouseCoords = targetPosition;
-
-    float  x = currentPosition.x();
-    float  y = currentPosition.y();
-
-    qDebug() << "initial";
-    qDebug() << x;
-    qDebug() << y;
-
     float  dx = mouseCoords->x();
     float  dy = mouseCoords->y();
 
+    for(int i = 0; i<numberOfStars; i++){
+        qDebug() << "here";
+        QGraphicsEllipseItem * starItem = starfield[i];
+        qDebug()<< starItem;
+        QPointF currentPosition = starItem->pos();
 
-    qDebug() << "before debug"                ;
-    // do transformation
-    x = x + ( x - dx ) * velocity;
-    y = y + ( y- dy ) * velocity;
-    qDebug() << "afterDebug";
-    qDebug() << x;
-    qDebug() << y;
+        float x = currentPosition.x();
+        float y = currentPosition.y();
 
+        x = x + ( x - dx ) * velocity;
+        y = y + ( y- dy ) * velocity;
 
-    // check if out of bounds
-    if ( x > (float)width || x < 0 || y > (float)height || y < 0) {
-        x = width/2;
-        y = height/2;
+        if ( x > (float)width || x < 0 || y > (float)height || y < 0) {
+            x = getRandomNumFromRange(0,width);
+            y = getRandomNumFromRange(0,height);
+        }
+
+        starItem->setPos(x,y);
     }
-
-    qDebug() << "dx dy";
-    qDebug() << dx ;
-    qDebug() << dy ;
-    qDebug() << "x y";
-    qDebug() << x;
-    qDebug() << y;
-    star->setPos(x,y);
-
-
-
-
 
 }
 
@@ -81,6 +72,6 @@ void Space::updateTargetMousePosition(QMouseEvent *event){
 }
 
 float Space::getRandomNumFromRange(float start, float end) {
-    float random = (float)rand() * end + start;
+    float random = float(rand() % (int)end) + start;
     return random;
 }
