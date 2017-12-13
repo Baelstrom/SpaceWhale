@@ -8,10 +8,9 @@
 Game::Game(QWidget *parent){
     this->setMouseTracking(true);
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,1000,800); // make the scene 800x600 instead of infinity by infinity (default)
+    scene->setSceneRect(0,0,1000,800);
 
-    // make the newly created scene the scene to visualize (since Game is a QGraphicsView Widget,
-    // it can be used to visualize scenes)
+
     QBrush *brush=new QBrush();
     brush->setStyle(Qt::SolidPattern);
     brush->setColor(QColor(45,45,45,255));

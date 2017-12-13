@@ -103,9 +103,9 @@ void WhaleA::move(){
     float ny = getNewCoords(y2,y1,velocity);
 
 
-    // first shift the array one step to the right
-    // then update head to be ndx, ndy
-    // then iterate over the whale object and apply transformatoins where history[i].pos == whale[i].pos
+    // first shift the history array one step to the right
+    // then update 0th position of history array to be the new positions derived from calculations for velocity etc..
+    // then iterate over the whale array object and apply transformations where history[i].pos == whale[i].pos
 
     // shift history
     shiftHistory();
@@ -186,20 +186,6 @@ void WhaleA::rightBarrelRoll()
         qDebug() << isRightBarrelRoll;
     }
 }
-
-
-
-//void WhaleA::addHistory(float velocity){
-
-//}
-
-//QPointF WhaleA::randomPoint(){
-//    int random_number = rand() % 700;
-
-//}
-
-// the purpose of this function is to register the plsceneayers movement actions
-// and register them to the head of the whale
 
 void WhaleA::shiftHistory(){
     int arraySize = 44;

@@ -25,14 +25,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-    MyRect.cpp \
     whalea.cpp \
     game.cpp \
     whaleslice.cpp \
     space.cpp
 
 HEADERS += \
-    MyRect.h \
     whalea.h \
     game.h \
     whaleslice.h \
