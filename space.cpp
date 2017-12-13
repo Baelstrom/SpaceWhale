@@ -55,9 +55,18 @@ void Space::starry()
         x = x + ( x - dx ) * velocity;
         y = y + ( y- dy ) * velocity;
 
+        QRectF rect = starfield[i]->rect();
+        qreal rectHeight = rect.height();
+        qreal rectWidth = rect.width();
+        starItem->setRect(0,0,rectWidth+0.05,rectHeight+0.05);
+
+
+        qDebug() << rect;
+
         if ( x > (float)width || x < 0 || y > (float)height || y < 0) {
             x = getRandomNumFromRange(0,width);
             y = getRandomNumFromRange(0,height);
+            starItem->setRect(0,0,1,1);
         }
 
         starItem->setPos(x,y);
